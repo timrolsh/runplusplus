@@ -9,6 +9,8 @@ public class StrafeHandler : MonoBehaviour
 
     public Animator animator;
     public GameObject deathMenu;
+    public AudioSource boingSoundEffect;
+    public AudioSource deathSoundEffect;
     void Start()
     {
         Time.timeScale = 1f;
@@ -45,6 +47,8 @@ public class StrafeHandler : MonoBehaviour
             else if (!animator.GetBool("isJumping") && Input.GetKey("space"))
             {
                 animator.SetBool("isJumping", true);
+                boingSoundEffect.Play();
+
             }
             else
             {
@@ -57,6 +61,14 @@ public class StrafeHandler : MonoBehaviour
                 deathMenu.SetActive(true);
                 // freezes the game
                 Time.timeScale = 0f;
+                // play sound effect
+                deathSoundEffect.Play();
+            }
+            // always move forward
+            else
+            {
+                GameObject.Find("player").transform.position += Vector3.forward * Time.deltaTime * 8;
+                GameObject.Find("camera").transform.position += Vector3.forward * Time.deltaTime * 8;
             }
         }
     }
@@ -66,20 +78,14 @@ public class StrafeHandler : MonoBehaviour
         // left
         if (direction == -1)
         {
-            GameObject.Find("player").transform.position += Vector3.left * Time.deltaTime * 5;
-            GameObject.Find("camera").transform.position += Vector3.left * Time.deltaTime * 5;
+            GameObject.Find("player").transform.position += Vector3.left * Time.deltaTime * 8;
+            GameObject.Find("camera").transform.position += Vector3.left * Time.deltaTime * 8;
         }
         // right
         else if (direction == 1)
         {
-            GameObject.Find("player").transform.position += Vector3.right * Time.deltaTime * 5;
-            GameObject.Find("camera").transform.position += Vector3.right * Time.deltaTime * 5;
-        }
-        // forward
-        else
-        {
-            GameObject.Find("player").transform.position += Vector3.forward * Time.deltaTime;
-            GameObject.Find("camera").transform.position += Vector3.forward * Time.deltaTime;
+            GameObject.Find("player").transform.position += Vector3.right * Time.deltaTime * 8;
+            GameObject.Find("camera").transform.position += Vector3.right * Time.deltaTime * 8;
         }
 
     }

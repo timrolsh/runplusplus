@@ -7,6 +7,7 @@ public class TitleScreenHandler : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        GameObject.Find("particles").SetActive(true);
 
     }
 
